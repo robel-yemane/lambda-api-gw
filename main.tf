@@ -4,7 +4,7 @@
 
 #Lambda Func
 resource "aws_lambda_function" "get_started_lambda" {
-  function_name = "GetStartedLambda"
+  function_name = "GetStartedLambdaFunc"
   role          = aws_iam_role.lambda_execution_role.arn
   handler       = "func.lambda_handler"
   runtime       = "python3.8"

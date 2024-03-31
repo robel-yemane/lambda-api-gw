@@ -10,5 +10,6 @@ terraform {
 
 provider "aws" {
   region = "eu-west-1"
-  #  profile = "cs"
+  #  removed for tf cloud
+  #  `profile = "cs"
 }
