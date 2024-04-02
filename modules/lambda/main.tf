@@ -20,8 +20,9 @@ resource "aws_cloudwatch_log_group" "hello_world" {
 # iam role for lambda
 resource "aws_iam_role" "lambda_exec" {
     name = "serverless_lambda"
-    assume_role_policy = jsondecode({
-        "Version": "2012-10-17",
+
+    assume_role_policy = jsonencode({
+        "Version": "2012-10-17",  
         "Statement": [
             {
                 "Action": "sts:AssumeRole",
@@ -32,8 +33,7 @@ resource "aws_iam_role" "lambda_exec" {
                 "Sid": ""
             }
         ]
-    })
-  
+    }) 
 }
 
 # iam role policy attachment
