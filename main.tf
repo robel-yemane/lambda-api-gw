@@ -17,7 +17,6 @@ resource "aws_s3_bucket_ownership_controls" "lambda_bucket" {
   rule {
     object_ownership = "BucketOwnerPreferred"
   }
-
 }
 
 # Set the bucket ACL to private
@@ -43,6 +42,16 @@ resource "aws_s3_object" "lambda_hello_world" {
 }
 
 
+// create lambda func
+module "lambda_function" {
+  source = "./modules/lambda"
+  function_name = "HelloWorld"
+  s3_bucket_id = aws_s3_bucket.lambda_bucket.id
+  s3_key = aws_s3_object.lambda_hello_world.key
+  handler = "hello.handler"
+  source_code_hash = data.archive_file.lambda_hello_world.output_base64sha256
+  retention_in_days = "30" 
+}
 ####################################################################
 # #Lambda Func
 # resource "aws_lambda_function" "get_started_lambda" {
