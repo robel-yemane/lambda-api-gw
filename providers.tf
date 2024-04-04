@@ -7,5 +7,5 @@ provider "aws" {
     }
   }
   #  removed for tf cloud
-  #  `profile = "cs"
+  #  profile = "cs"
 }

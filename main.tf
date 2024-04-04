@@ -52,6 +52,15 @@ module "lambda_function" {
   source_code_hash = data.archive_file.lambda_hello_world.output_base64sha256
   retention_in_days = "30" 
 }
+
+output "cloudwatch_log_group_name" {
+  value = module.lambda_function.cloudwatch_log_group_name
+}
+
+output "lambda_function_url" {
+  value = module.lambda_function.function_url
+}
+
 ####################################################################
 # #Lambda Func
 # resource "aws_lambda_function" "get_started_lambda" {
