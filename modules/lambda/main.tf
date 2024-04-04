@@ -11,3 +11,13 @@ resource "aws_lambda_function" "hello_world" {
   role             = aws_iam_role.lambda_exec.arn
 }
 
+# create lambda function url
+resource "aws_lambda_function_url" "hello_world" {
+  function_name = aws_lambda_function.hello_world.function_name
+  authorization_type = "NONE"
+}
+
+data "aws_lambda_function_url" "hello_world" {
+  function_name = aws_lambda_function.hello_world.function_name
+  
+}
