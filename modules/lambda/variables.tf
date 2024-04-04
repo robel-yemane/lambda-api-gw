@@ -13,7 +13,7 @@ variable "s3_key" {
 variable "runtime" {
   description = "The runtime to use for the lambda function"
   type        = string
-  default = "nodejs20.x"
+  default     = "nodejs20.x"
 }
 variable "handler" {
   description = "The handler function to use for the lambda function"
