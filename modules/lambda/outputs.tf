@@ -4,5 +4,5 @@ output "cloudwatch_log_group_name" {
 
 output "function_url" {
   value = data.aws_lambda_function_url.hello_world.function_url
-  
+
 }
