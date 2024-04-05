@@ -8,7 +8,7 @@ resource "random_pet" "lambda_bucket_name" {
 
 # Create an S3 bucket for the Lambda function
 resource "aws_s3_bucket" "lambda_bucket" {
-  bucket = random_pet.lambda_bucket_name.id 
+  bucket = random_pet.lambda_bucket_name.id
 }
 
 # Enable bucket ownership controls
@@ -22,35 +22,35 @@ resource "aws_s3_bucket_ownership_controls" "lambda_bucket" {
 # Set the bucket ACL to private
 resource "aws_s3_bucket_acl" "lambda_bucket" {
   depends_on = [aws_s3_bucket_ownership_controls.lambda_bucket]
-  bucket = aws_s3_bucket.lambda_bucket.id
-  acl    = "private"
+  bucket     = aws_s3_bucket.lambda_bucket.id
+  acl        = "private"
 }
-  
+
 # package and copy hello-world func to the s3 bucket
 data "archive_file" "lambda_hello_world" {
-  type = "zip"
-  source_dir = "${path.module}/hello-world"
+  type        = "zip"
+  source_dir  = "${path.module}/hello-world"
   output_path = "${path.module}/hello-world.zip"
 }
 
 resource "aws_s3_object" "lambda_hello_world" {
-  bucket = aws_s3_bucket.lambda_bucket.id 
+  bucket = aws_s3_bucket.lambda_bucket.id
 
-  key = "hello-world.zip"
+  key    = "hello-world.zip"
   source = data.archive_file.lambda_hello_world.output_path
-  etag = filemd5(data.archive_file.lambda_hello_world.output_path)
+  etag   = filemd5(data.archive_file.lambda_hello_world.output_path)
 }
 
 
 // create lambda func
 module "lambda_function" {
-  source = "./modules/lambda"
-  function_name = "HelloWorld"
-  s3_bucket_id = aws_s3_bucket.lambda_bucket.id
-  s3_key = aws_s3_object.lambda_hello_world.key
-  handler = "hello.handler"
-  source_code_hash = data.archive_file.lambda_hello_world.output_base64sha256
-  retention_in_days = "30" 
+  source            = "./modules/lambda"
+  function_name     = "HelloWorld"
+  s3_bucket_id      = aws_s3_bucket.lambda_bucket.id
+  s3_key            = aws_s3_object.lambda_hello_world.key
+  handler           = "hello.handler"
+  source_code_hash  = data.archive_file.lambda_hello_world.output_base64sha256
+  retention_in_days = "30"
 }
 
 output "cloudwatch_log_group_name" {
@@ -59,6 +59,11 @@ output "cloudwatch_log_group_name" {
 
 output "lambda_function_url" {
   value = module.lambda_function.function_url
+}
+
+output "lambda_function_name" {
+  value = module.lambda_function.function_name
+
 }
 
 ####################################################################
