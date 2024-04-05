@@ -21,5 +21,6 @@ resource "aws_lambda_function_url" "hello_world" {
 
 #fetch lambda func url
 data "aws_lambda_function_url" "hello_world" {
+  depends_on = [ aws_lambda_function_url.hello_world ]
   function_name = aws_lambda_function.hello_world.function_name
 }
