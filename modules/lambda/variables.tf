@@ -19,10 +19,10 @@ variable "handler" {
   description = "The handler function to use for the lambda function"
   type        = string
 }
-variable "source_code_hash" {
-  description = "The base64-encoded SHA256 hash of the lambda function code"
-  type        = string
-}
+# variable "source_code_hash" {
+#   description = "The base64-encoded SHA256 hash of the lambda function code"
+#   type        = string
+# }
 
 # cloudwatch log group
 variable "retention_in_days" {
