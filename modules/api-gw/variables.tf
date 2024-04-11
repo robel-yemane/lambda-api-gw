@@ -15,3 +15,7 @@ variable "stage_name" {
   type        = string
     default = "dev"
 }
+variable "auto_deploy" {
+  description = "Auto deploy the API Gateway"
+  type        = bool  
+}
