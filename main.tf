@@ -9,7 +9,7 @@ module "lambda_s3_bucket" {
 // create lambda func
 module "lambda_function" {
   source            = "./modules/lambda"
-  function_name     = "HelloWorld"
+  name     = "HelloWorld"
   s3_bucket_id      = module.lambda_s3_bucket.s3_bucket_id
   s3_key            = module.lambda_s3_bucket.s3_key
   handler           = "hello.handler"
@@ -27,12 +27,4 @@ module "api_gateway" {
   source               = "./modules/apigw"
   lambda_function_name = module.lambda_function.function_name
   lambda_function_invoke_arn   = module.lambda_function.invoke_arn
-}
-
-// create api gateway
-module "api_gateway" {
-  source = "./modules/api-gw"
-  name = "serverless_lambda_gw"
-  stage_name = "serverless_lambda_stage"
-  auto_deploy = true
 }
