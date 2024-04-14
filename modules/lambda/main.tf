@@ -7,9 +7,7 @@ resource "aws_lambda_function" "hello_world" {
   runtime       = var.runtime
   handler       = var.handler
   #source_code_hash = var.source_code_hash
-  role = aws_iam_role.lambda_exec.arn
-  
-  
+  role = aws_iam_role.lambda_exec.arn 
 }
 
 # No need to create a lambda function url
@@ -27,3 +25,4 @@ resource "aws_lambda_function" "hello_world" {
 #   depends_on    = [aws_lambda_function_url.hello_world]
 #   function_name = aws_lambda_function.hello_world.function_name
 # }
+
