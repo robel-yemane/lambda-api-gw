@@ -10,3 +10,8 @@ output "lambda_function_name" {
 output "lambda_invoke_arn" {
   value = module.lambda_function.invoke_arn
 }
+
+output "base_url" {
+  value = module.api_gateway.base_url
+  
+}
